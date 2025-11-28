@@ -410,30 +410,47 @@
     }
 
     /* 갤러리 섹션 (완성형) */
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin-top: 16px;
-    }
-    .gallery-item {
-      width: 100%;
-      height: 350px;   /* 세로 길이 */
-      overflow: hidden;
-      border-radius: 16px;
-      box-shadow: 0 5px 18px rgba(0,0,0,0.08);
-      border: 1px solid #e5e5e5;
-    }
-    .gallery-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform .35s ease, filter .35s;
-    }
-    .gallery-item:hover img {
-      transform: scale(1.08);
-      filter: brightness(1.07);
-    }
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.gallery-item {
+  width: 100%;
+  height: 350px;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+  border: 1px solid #e5e5e5;
+  position: relative;              /* ⬅ 캡션 오버레이용 */
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .35s ease, filter .35s;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.08);
+  filter: brightness(1.07);
+}
+
+/* 시술명 캡션 */
+.gallery-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 6px 10px;
+  font-size: 0.8rem;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.55);
+  text-align: left;
+}
 
     /* 예약/문의 섹션 */
     .contact-grid {
@@ -878,35 +895,41 @@
 
   <!-- 갤러리 -->
   <section class="section" id="gallery">
-    <div class="section-header">
-      <div class="section-kicker">GALLERY</div>
-      <h2 class="section-title">스타일 포트폴리오</h2>
-      <p class="section-desc">
-        실제 시술 사진으로 채워갈 예정입니다. 아래 이미지만 교체해 주세요.
-      </p>
-    </div>
+  <div class="section-header">
+    <div class="section-kicker">GALLERY</div>
+    <h2 class="section-title">스타일 포트폴리오</h2>
+    <p class="section-desc">
+      실제 시술 사진으로 채워갈 예정입니다. 아래 이미지만 교체해 주세요.
+    </p>
+  </div>
 
-    <div class="gallery-grid">
-      <div class="gallery-item">
-        <img src="img/img.jpg" alt="레이어드컷">
-      </div>
-      <div class="gallery-item">
-        <img src="img/img1.jpg" alt="염색 시술">
-      </div>
-      <div class="gallery-item">
-        <img src="img/img2.jpg" alt="단발 C컬펌">
-      </div>
-      <div class="gallery-item">
-        <img src="img/img3.jpg" alt="볼륨매직">
-      </div>
-      <div class="gallery-item">
-        <img src="img/img4.jpg" alt="하이라이트 컬러링">
-      </div>
-      <div class="gallery-item">
-        <img src="img/img5.jpg" alt="웨이브펌">
-      </div>
+  <div class="gallery-grid">
+    <div class="gallery-item">
+      <img src="img/img.jpg" alt="레이어드컷">
+      <div class="gallery-caption">레이어드컷</div>
     </div>
-  </section>
+    <div class="gallery-item">
+      <img src="img/img1.jpg" alt="염색 시술">
+      <div class="gallery-caption">전체 염색</div>
+    </div>
+    <div class="gallery-item">
+      <img src="img/img2.jpg" alt="단발 C컬펌">
+      <div class="gallery-caption">단발 C컬펌</div>
+    </div>
+    <div class="gallery-item">
+      <img src="img/img3.jpg" alt="볼륨매직">
+      <div class="gallery-caption">볼륨매직</div>
+    </div>
+    <div class="gallery-item">
+      <img src="img/img4.jpg" alt="하이라이트 컬러링">
+      <div class="gallery-caption">하이라이트 컬러</div>
+    </div>
+    <div class="gallery-item">
+      <img src="img/img5.jpg" alt="웨이브펌">
+      <div class="gallery-caption">웨이브펌</div>
+    </div>
+  </div>
+</section>
 
   <!-- 예약/문의 -->
   <section class="section" id="contact">
