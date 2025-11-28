@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="헤어지지말자 미용실 - 감성 헤어살롱, 커트·염색·펌·클리닉 전문. 1:1 맞춤 시술과 합리적인 가격으로 당신의 일상을 더 특별하게." />
   <style>
-         * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", sans-serif;
       background: #ffffff;
@@ -409,24 +409,30 @@
       color: var(--primary-dark);
     }
 
-    /* 갤러리(플레이스홀더) */
+    /* 갤러리 섹션 (완성형) */
     .gallery-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap: 10px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 16px;
     }
     .gallery-item {
-      height: 110px;
+      width: 100%;
+      height: 350px;   /* 세로 길이 */
+      overflow: hidden;
       border-radius: 16px;
-      background: linear-gradient(135deg, #ffe5e5, #ffffff);
-      border: 1px dashed #f3b3b3;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.8rem;
-      color: #b71c1c;
-      text-align: center;
-      padding: 0 8px;
+      box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+      border: 1px solid #e5e5e5;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .35s ease, filter .35s;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.08);
+      filter: brightness(1.07);
     }
 
     /* 예약/문의 섹션 */
@@ -498,7 +504,7 @@
       box-shadow: 0 0 0 1px rgba(229,57,53,0.25);
     }
 
-    /* 오시는 길 (임시 안내) */
+    /* 오시는 길 */
     .map-card {
       background: #ffffff;
       border-radius: var(--radius-lg);
@@ -612,45 +618,10 @@
       .price-table td:nth-child(3) {
         display: none; /* 모바일에서 비고 숨김 */
       }
+      .gallery-item {
+        height: 260px; /* 모바일에서 살짝 줄이기 */
+      }
     }
- /* ────── GALLERY 완성 디자인 ────── */
-
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-  margin-top: 16px;
-}
-
-.gallery-item {
-  width: 100%;
-  height: 350px;        /* ⬅ 여기 숫자 키우면 세로 더 길어짐 */
-  overflow: hidden;
-  border-radius: 16px;
-  box-shadow: 0 5px 18px rgba(0,0,0,0.08);
-  border: 1px solid #e5e5e5;
-}
-
-.gallery-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform .35s ease, filter .35s;
-}
-
-.gallery-item:hover img {
-  transform: scale(1.08);
-  filter: brightness(1.07);
-}
-
-/* 반응형 */
-@media (max-width:900px){
-  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width:520px){
-  .gallery-grid { grid-template-columns: 1fr; }
-  .gallery-item { height: 260px; } /* 모바일은 살짝만 줄임 */
-}
   </style>
 </head>
 <body>
@@ -805,7 +776,7 @@
         <div class="service-card-desc">
           얼굴형과 두상, 모발 방향을 고려한 맞춤 커트입니다. 드라이 방법까지 안내해 드려요.
         </div>
-        <div class="service-card-price">여성 20,000원 / 남성 18,000원 </div>
+        <div class="service-card-price">여성 20,000원 / 남성 18,000원</div>
       </article>
 
       <article class="service-card">
@@ -906,36 +877,36 @@
   </section>
 
   <!-- 갤러리 -->
-<section class="section" id="gallery">
-  <div class="section-header">
-    <div class="section-kicker">GALLERY</div>
-    <h2 class="section-title">스타일 포트폴리오</h2>
-    <p class="section-desc">
-      실제 시술 사진으로 채워갈 예정입니다. 아래 이미지만 교체해 주세요.
-    </p>
-  </div>
+  <section class="section" id="gallery">
+    <div class="section-header">
+      <div class="section-kicker">GALLERY</div>
+      <h2 class="section-title">스타일 포트폴리오</h2>
+      <p class="section-desc">
+        실제 시술 사진으로 채워갈 예정입니다. 아래 이미지만 교체해 주세요.
+      </p>
+    </div>
 
-  <div class="gallery-grid">
-    <div class="gallery-item">
-      <img src="sample.jpg" alt="레이어드컷">
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="img/hair1.jpg" alt="레이어드컷">
+      </div>
+      <div class="gallery-item">
+        <img src="img/hair2.jpg" alt="염색 시술">
+      </div>
+      <div class="gallery-item">
+        <img src="img/hair3.jpg" alt="단발 C컬펌">
+      </div>
+      <div class="gallery-item">
+        <img src="img/hair4.jpg" alt="볼륨매직">
+      </div>
+      <div class="gallery-item">
+        <img src="img/hair5.jpg" alt="하이라이트 컬러링">
+      </div>
+      <div class="gallery-item">
+        <img src="img/hair6.jpg" alt="웨이브펌">
+      </div>
     </div>
-    <div class="gallery-item">
-      <img src="sample1.jpg" alt="염색 시술">
-    </div>
-    <div class="gallery-item">
-      <img src="img/hair3.jpg" alt="단발 C컬펌">
-    </div>
-    <div class="gallery-item">
-      <img src="img/hair4.jpg" alt="볼륨매직">
-    </div>
-    <div class="gallery-item">
-      <img src="img/hair5.jpg" alt="하이라이트 컬러링">
-    </div>
-    <div class="gallery-item">
-      <img src="img/hair6.jpg" alt="웨이브펌">
-    </div>
-  </div>
-</section>
+  </section>
 
   <!-- 예약/문의 -->
   <section class="section" id="contact">
@@ -1026,12 +997,12 @@
       </div>
       <div class="contact-row">
         <span class="contact-label">주차</span>
-        <span class="contact-value">가계앞 가계옆 주차가능</span>
+        <span class="contact-value">가게 앞·옆 주차 가능</span>
       </div>
       <div class="map-box">
         • 네이버 지도에서 “헤어지지말자 미용실” 또는 “대전 유성구 구암동 608-12” 검색<br />
-        • 인근 버스정류장 하차 후 도보 이동<br />
-        • 차량 이용 시, 가계앞, 가계옆 주차 가능
+        • 인근 버스 정류장 하차 후 도보 이동<br />
+        • 차량 이용 시, 가게 앞·옆 주차 가능
       </div>
     </div>
   </section>
@@ -1040,7 +1011,7 @@
   <footer>
     <div class="footer-inner">
       <div>© 헤어지지말자 미용실 · All Rights Reserved.</div>
-      <div>대표자: 황경희 | 사업자등록번호: 000-00-00000 </div>
+      <div>대표자: 황경희 | 사업자등록번호: 000-00-00000</div>
     </div>
   </footer>
 
