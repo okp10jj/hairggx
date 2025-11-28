@@ -899,8 +899,7 @@
     <div class="section-kicker">GALLERY</div>
     <h2 class="section-title">스타일 포트폴리오</h2>
     <p class="section-desc">
-      실제 시술 사진으로 채워갈 예정입니다. 아래 이미지만 교체해 주세요.
-    </p>
+          </p>
   </div>
 
   <div class="gallery-grid">
@@ -966,41 +965,40 @@
       </div>
 
       <div>
-        <form class="contact-form">
-          <div>
-            <label>이름</label>
-            <input type="text" placeholder="이름을 입력해 주세요." />
-          </div>
-          <div>
-            <label>연락처</label>
-            <input type="tel" placeholder="010-0000-0000" />
-          </div>
-          <div>
-            <label>원하시는 날짜/시간</label>
-            <input type="text" placeholder="예: 5월 3일 오후 3시 이후" />
-          </div>
-          <div>
-            <label>희망 시술</label>
-            <select>
-              <option>선택해 주세요</option>
-              <option>커트</option>
-              <option>염색</option>
-              <option>펌</option>
-              <option>매직·볼륨매직</option>
-              <option>클리닉</option>
-              <option>기타</option>
-            </select>
-          </div>
-          <div>
-            <label>추가 문의사항</label>
-            <textarea placeholder="원하시는 스타일, 모발 상태 등을 자유롭게 적어 주세요."></textarea>
-          </div>
-          <button class="btn-primary" type="button">
-            폼 디자인용 버튼 (실제 전송 기능 없음)
-          </button>
-        </form>
-      </div>
+  <form class="contact-form" id="reserveForm">
+    <div>
+      <label>이름</label>
+      <input type="text" name="name" placeholder="이름을 입력해 주세요." required />
     </div>
+    <div>
+      <label>연락처</label>
+      <input type="tel" name="phone" placeholder="010-0000-0000" required />
+    </div>
+    <div>
+      <label>원하시는 날짜/시간</label>
+      <input type="text" name="datetime" placeholder="예: 5월 3일 오후 3시 이후" />
+    </div>
+    <div>
+      <label>희망 시술</label>
+      <select name="service">
+        <option value="">선택해 주세요</option>
+        <option>커트</option>
+        <option>염색</option>
+        <option>펌</option>
+        <option>매직·볼륨매직</option>
+        <option>클리닉</option>
+        <option>기타</option>
+      </select>
+    </div>
+    <div>
+      <label>추가 문의사항</label>
+      <textarea name="memo" placeholder="원하시는 스타일, 모발 상태 등을 자유롭게 적어 주세요."></textarea>
+    </div>
+    <button class="btn-primary" type="submit">
+      예약 문자 보내기
+    </button>
+  </form>
+</div>
   </section>
 
   <!-- 오시는 길 -->
@@ -1009,7 +1007,6 @@
       <div class="section-kicker">LOCATION</div>
       <h2 class="section-title">오시는 길</h2>
       <p class="section-desc">
-        실제 주소와 지도를 입력하시면 됩니다. 아래 내용만 수정해 주세요.
       </p>
     </div>
 
@@ -1034,7 +1031,7 @@
   <footer>
     <div class="footer-inner">
       <div>© 헤어지지말자 미용실 · All Rights Reserved.</div>
-      <div>대표자: 황경희 | 사업자등록번호: 000-00-00000</div>
+      <div>대표자: 황경희 | 사업자등록번호: 241-05-03146</div>
     </div>
   </footer>
 
@@ -1046,20 +1043,59 @@
   </div>
 
   <script>
-    // 모바일 메뉴 토글
-    const navToggle = document.getElementById('navToggle');
-    const navMenu = document.getElementById('navMenu');
+  // 모바일 메뉴 토글
+  const navToggle = document.getElementById('navToggle');
+  const navMenu = document.getElementById('navMenu');
 
-    navToggle.addEventListener('click', () => {
-      navMenu.classList.toggle('show');
-    });
+  navToggle.addEventListener('click', () => {
+    navMenu.classList.toggle('show');
+  });
 
-    // 메뉴 클릭 시 닫기 (모바일)
-    navMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        navMenu.classList.remove('show');
-      });
+  navMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navMenu.classList.remove('show');
     });
-  </script>
+  });
+
+  // 🔔 예약폼 → /api/sens 로 전송
+  const reserveForm = document.getElementById('reserveForm');
+
+  if (reserveForm) {
+    reserveForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(reserveForm);
+      const data = {
+        name: formData.get('name'),
+        phone: formData.get('phone'),
+        datetime: formData.get('datetime'),
+        service: formData.get('service'),
+        memo: formData.get('memo'),
+      };
+
+      try {
+        const res = await fetch('/api/sens', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+
+        const json = await res.json();
+
+        if (json.ok) {
+          alert('예약 정보가 문자로 전달되었습니다. 감사합니다!');
+          reserveForm.reset();
+        } else {
+          console.error(json);
+          alert('문자 전송 중 오류가 발생했습니다.\n잠시 후 다시 시도해 주세요.');
+        }
+      } catch (err) {
+        console.error(err);
+        alert('문자 전송에 실패했습니다. 인터넷 연결을 확인해 주세요.');
+      }
+    });
+  }
+</script>
+
 </body>
 </html>
