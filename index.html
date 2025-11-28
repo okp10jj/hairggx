@@ -2,9 +2,9 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>헤어지지말자 미용실 - 감성 헤어살롱</title>
+  <title>대전 유성구 구암동 미용실 헤어지지말자 - 감성 헤어살롱</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="헤어지지말자 미용실 - 감성 헤어살롱, 커트·염색·펌·클리닉 전문. 1:1 맞춤 시술과 합리적인 가격으로 당신의 일상을 더 특별하게." />
+  <meta name="description" content="대전 유성구 구암동 미용실 헤어지지말자 - 1:1 감성 헤어살롱, 커트·염색·펌·클리닉 전문. 대전 유성구 구암동 608-12 1층, 예약제 미용실." />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -92,13 +92,18 @@
 
     .nav-right {
       display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.85rem;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2px;
+      font-size: 0.82rem;
     }
     .nav-phone {
       font-weight: 600;
       color: var(--text-main);
+    }
+    .nav-location {
+      font-size: 0.75rem;
+      color: var(--text-light);
     }
     .btn-outline {
       border-radius: 999px;
@@ -109,6 +114,7 @@
       cursor: pointer;
       background: #ffffff;
       transition: all 0.2s ease;
+      margin-top: 4px;
     }
     .btn-outline:hover {
       background: var(--primary);
@@ -170,7 +176,12 @@
     .hero-sub {
       font-size: 0.95rem;
       color: var(--text-light);
-      margin-bottom: 24px;
+      margin-bottom: 10px;
+    }
+    .hero-location {
+      font-size: 0.85rem;
+      color: var(--primary-dark);
+      margin-bottom: 22px;
     }
     .hero-cta {
       display: flex;
@@ -410,47 +421,47 @@
     }
 
     /* 갤러리 섹션 (완성형) */
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-  margin-top: 16px;
-}
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
 
-.gallery-item {
-  width: 100%;
-  height: 350px;
-  overflow: hidden;
-  border-radius: 16px;
-  box-shadow: 0 5px 18px rgba(0,0,0,0.08);
-  border: 1px solid #e5e5e5;
-  position: relative;              /* ⬅ 캡션 오버레이용 */
-}
+    .gallery-item {
+      width: 100%;
+      height: 350px;
+      overflow: hidden;
+      border-radius: 16px;
+      box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+      border: 1px solid #e5e5e5;
+      position: relative;              /* 캡션 오버레이용 */
+    }
 
-.gallery-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform .35s ease, filter .35s;
-}
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .35s ease, filter .35s;
+    }
 
-.gallery-item:hover img {
-  transform: scale(1.08);
-  filter: brightness(1.07);
-}
+    .gallery-item:hover img {
+      transform: scale(1.08);
+      filter: brightness(1.07);
+    }
 
-/* 시술명 캡션 */
-.gallery-caption {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 6px 10px;
-  font-size: 0.8rem;
-  color: #ffffff;
-  background: rgba(0, 0, 0, 0.55);
-  text-align: left;
-}
+    /* 시술명 캡션 */
+    .gallery-caption {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 6px 10px;
+      font-size: 0.8rem;
+      color: #ffffff;
+      background: rgba(0, 0, 0, 0.55);
+      text-align: left;
+    }
 
     /* 예약/문의 섹션 */
     .contact-grid {
@@ -504,7 +515,7 @@
       width: 100%;
       outline: none;
       background: #ffffff;
-      color: var(--text-main);
+      color: #text-main;
     }
     .contact-form textarea {
       resize: vertical;
@@ -662,6 +673,7 @@
 
       <div class="nav-right">
         <div class="nav-phone">예약문의 010-4242-6783</div>
+        <div class="nav-location">대전 유성구 구암동 608-12 1층 미용실</div>
         <a class="btn-outline" href="tel:01042426783">전화하기</a>
       </div>
 
@@ -678,13 +690,16 @@
         <span></span> 오늘도, 헤어지지 말자 – 머리와 고민과
       </div>
       <h1 class="hero-title">
-        당신의 일상에<br />
+        대전 유성구 구암동에서<br />
         <strong>오래 남는 헤어</strong>를 디자인합니다.
       </h1>
       <p class="hero-sub">
         헤어지지말자 미용실은 1:1 맞춤 상담과 섬세한 시술로<br />
         머리가 자라나도 스타일이 자연스럽게 이어지도록 디자인합니다.
       </p>
+      <div class="hero-location">
+        대전 유성구 구암동 608-12 1층 · 구암동 주민들이 찾는 동네 미용실
+      </div>
       <div class="hero-cta">
         <a class="btn-primary" href="tel:01042426783">
           지금 바로 전화 예약
@@ -695,6 +710,7 @@
       </div>
       <div class="hero-info">
         <div>영업시간 10:00 ~ 19:00</div>
+        <div>대전 유성구 구암동 608-12 1층</div>
         <div>완전예약제 · 대기 최소화</div>
         <div>컷·염색·펌·클리닉 전문</div>
       </div>
@@ -729,9 +745,10 @@
   <section class="section" id="about">
     <div class="section-header">
       <div class="section-kicker">ABOUT</div>
-      <h2 class="section-title">헤어지지말자 미용실을 소개합니다</h2>
+      <h2 class="section-title">대전 유성구 구암동 헤어지지말자 미용실을 소개합니다</h2>
       <p class="section-desc">
-        한 번의 유행보다는, 오래 보고 싶은 헤어를 고민합니다.
+        대전 유성구 구암동에 위치한 1:1 프라이빗 감성 헤어살롱으로,<br />
+        한 번의 유행보다는 오래 보고 싶은 헤어를 고민합니다.
       </p>
     </div>
 
@@ -775,6 +792,7 @@
       <div class="section-kicker">SERVICES</div>
       <h2 class="section-title">시술 메뉴 안내</h2>
       <p class="section-desc">
+        대전 유성구 구암동 인근 고객님들의 라이프스타일에 맞춰,<br />
         모발 상태에 따라 가격과 소요 시간이 달라질 수 있습니다. 방문 전 편하게 문의 주세요.
       </p>
     </div>
@@ -895,40 +913,41 @@
 
   <!-- 갤러리 -->
   <section class="section" id="gallery">
-  <div class="section-header">
-    <div class="section-kicker">GALLERY</div>
-    <h2 class="section-title">스타일 포트폴리오</h2>
-    <p class="section-desc">
-          </p>
-  </div>
+    <div class="section-header">
+      <div class="section-kicker">GALLERY</div>
+      <h2 class="section-title">스타일 포트폴리오</h2>
+      <p class="section-desc">
+        대전 유성구 구암동에서 실제 시술한 스타일 사진들로 차차 채워갈 예정입니다.
+      </p>
+    </div>
 
-  <div class="gallery-grid">
-    <div class="gallery-item">
-      <img src="img/img.jpg" alt="레이어드컷">
-      <div class="gallery-caption">레이어드컷</div>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="img/img.jpg" alt="대전 유성구 구암동 레이어드컷">
+        <div class="gallery-caption">레이어드컷</div>
+      </div>
+      <div class="gallery-item">
+        <img src="img/img1.jpg" alt="대전 유성구 구암동 전체 염색 시술">
+        <div class="gallery-caption">전체 염색</div>
+      </div>
+      <div class="gallery-item">
+        <img src="img/img2.jpg" alt="대전 유성구 구암동 단발 C컬펌">
+        <div class="gallery-caption">단발 C컬펌</div>
+      </div>
+      <div class="gallery-item">
+        <img src="img/img3.jpg" alt="대전 유성구 구암동 볼륨매직">
+        <div class="gallery-caption">볼륨매직</div>
+      </div>
+      <div class="gallery-item">
+        <img src="img/img4.jpg" alt="대전 유성구 구암동 하이라이트 컬러링">
+        <div class="gallery-caption">하이라이트 컬러</div>
+      </div>
+      <div class="gallery-item">
+        <img src="img/img5.jpg" alt="대전 유성구 구암동 웨이브펌">
+        <div class="gallery-caption">웨이브펌</div>
+      </div>
     </div>
-    <div class="gallery-item">
-      <img src="img/img1.jpg" alt="염색 시술">
-      <div class="gallery-caption">전체 염색</div>
-    </div>
-    <div class="gallery-item">
-      <img src="img/img2.jpg" alt="단발 C컬펌">
-      <div class="gallery-caption">단발 C컬펌</div>
-    </div>
-    <div class="gallery-item">
-      <img src="img/img3.jpg" alt="볼륨매직">
-      <div class="gallery-caption">볼륨매직</div>
-    </div>
-    <div class="gallery-item">
-      <img src="img/img4.jpg" alt="하이라이트 컬러링">
-      <div class="gallery-caption">하이라이트 컬러</div>
-    </div>
-    <div class="gallery-item">
-      <img src="img/img5.jpg" alt="웨이브펌">
-      <div class="gallery-caption">웨이브펌</div>
-    </div>
-  </div>
-</section>
+  </section>
 
   <!-- 예약/문의 -->
   <section class="section" id="contact">
@@ -951,6 +970,10 @@
           <span class="contact-value">@헤어지지말자 (예시)</span>
         </div>
         <div class="contact-row">
+          <span class="contact-label">주소</span>
+          <span class="contact-value">대전 유성구 구암동 608-12 1층</span>
+        </div>
+        <div class="contact-row">
           <span class="contact-label">영업시간</span>
           <span class="contact-value">10:00 ~ 19:00</span>
         </div>
@@ -965,40 +988,41 @@
       </div>
 
       <div>
-  <form class="contact-form" id="reserveForm">
-    <div>
-      <label>이름</label>
-      <input type="text" name="name" placeholder="이름을 입력해 주세요." required />
+        <form class="contact-form" id="reserveForm">
+          <div>
+            <label>이름</label>
+            <input type="text" name="name" placeholder="이름을 입력해 주세요." required />
+          </div>
+          <div>
+            <label>연락처</label>
+            <input type="tel" name="phone" placeholder="010-0000-0000" required />
+          </div>
+          <div>
+            <label>원하시는 날짜/시간</label>
+            <input type="text" name="datetime" placeholder="예: 5월 3일 오후 3시 이후" />
+          </div>
+          <div>
+            <label>희망 시술</label>
+            <select name="service">
+              <option value="">선택해 주세요</option>
+              <option>커트</option>
+              <option>염색</option>
+              <option>펌</option>
+              <option>매직·볼륨매직</option>
+              <option>클리닉</option>
+              <option>기타</option>
+            </select>
+          </div>
+          <div>
+            <label>추가 문의사항</label>
+            <textarea name="memo" placeholder="원하시는 스타일, 모발 상태 등을 자유롭게 적어 주세요."></textarea>
+          </div>
+          <button class="btn-primary" type="submit">
+            예약 문자 보내기
+          </button>
+        </form>
+      </div>
     </div>
-    <div>
-      <label>연락처</label>
-      <input type="tel" name="phone" placeholder="010-0000-0000" required />
-    </div>
-    <div>
-      <label>원하시는 날짜/시간</label>
-      <input type="text" name="datetime" placeholder="예: 5월 3일 오후 3시 이후" />
-    </div>
-    <div>
-      <label>희망 시술</label>
-      <select name="service">
-        <option value="">선택해 주세요</option>
-        <option>커트</option>
-        <option>염색</option>
-        <option>펌</option>
-        <option>매직·볼륨매직</option>
-        <option>클리닉</option>
-        <option>기타</option>
-      </select>
-    </div>
-    <div>
-      <label>추가 문의사항</label>
-      <textarea name="memo" placeholder="원하시는 스타일, 모발 상태 등을 자유롭게 적어 주세요."></textarea>
-    </div>
-    <button class="btn-primary" type="submit">
-      예약 문자 보내기
-    </button>
-  </form>
-</div>
   </section>
 
   <!-- 오시는 길 -->
@@ -1007,6 +1031,7 @@
       <div class="section-kicker">LOCATION</div>
       <h2 class="section-title">오시는 길</h2>
       <p class="section-desc">
+        대전 유성구 구암동 608-12 1층, 구암동 중심에 위치한 미용실입니다.
       </p>
     </div>
 
@@ -1030,7 +1055,7 @@
   <!-- 푸터 -->
   <footer>
     <div class="footer-inner">
-      <div>© 헤어지지말자 미용실 · All Rights Reserved.</div>
+      <div>© 대전 유성구 구암동 헤어지지말자 미용실 · All Rights Reserved.</div>
       <div>대표자: 황경희 | 사업자등록번호: 241-05-03146</div>
     </div>
   </footer>
@@ -1057,7 +1082,7 @@
     });
   });
 
-  // 🔔 예약폼 → /api/sens 로 전송
+  // 예약폼 → /api/sens 로 전송
   const reserveForm = document.getElementById('reserveForm');
 
   if (reserveForm) {
@@ -1095,7 +1120,7 @@
       }
     });
   }
-</script>
+  </script>
 
 </body>
 </html>
