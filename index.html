@@ -1138,27 +1138,12 @@
     });
   }
   </script>
-  <script>
-    var mapOptions = {
-      center: new naver.maps.LatLng(36.3622748, 127.3560641), // 헤어지지말자 좌표
-      zoom: 17
-    };
-
-    var map = new naver.maps.Map('map', mapOptions);
-
-    // 마커 추가
-    var marker = new naver.maps.Marker({
-      position: new naver.maps.LatLng(36.3622748, 127.3560641),
-      map: map
-    });
-  </script>
+  
 <script src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=5gs88lpn37&v=2"></script>
 
 <script>
-  // 구암동 헤어지지말자 좌표
   const salonLocation = new naver.maps.LatLng(36.3624072, 127.327531);
 
-  // 지도 생성
   const map = new naver.maps.Map('naverMap', {
       center: salonLocation,
       zoom: 16,
@@ -1166,13 +1151,11 @@
       zoomControl: true
   });
 
-  // 마커 표시
   new naver.maps.Marker({
       position: salonLocation,
       map: map,
   });
 
-  // 말풍선(옵션)
   const infowindow = new naver.maps.InfoWindow({
       content: `
         <div style="padding:8px; font-size:13px;">
