@@ -22,10 +22,11 @@ module.exports = async (req, res) => {
   const service = bodyData?.service || "미입력";
   const memo = bodyData?.memo || "없음";
 
+  // ✔ 캡처에 맞게 KEY 수정됨
   const serviceId = process.env.NCP_SENS_SERVICE_ID;
-  const accessKey = process.env.NCP_ACCESS_KEY;
-  const secretKey = process.env.NCP_SECRET_KEY;
-  const fromNumber = process.env.NCP_SENS_FROM;
+  const accessKey = process.env.NCP_SENS_ACCESS_KEY;
+  const secretKey = process.env.NCP_SENS_SECRET_KEY;
+  const fromNumber = process.env.NCP_SENS_CALL_NUMBER;
 
   if (!serviceId || !accessKey || !secretKey || !fromNumber) {
     return res.status(500).json({
