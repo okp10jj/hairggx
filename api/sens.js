@@ -28,7 +28,7 @@ module.exports = async (req, res) => {
   }
 
   const timestamp = Date.now().toString();
-  const url = `/sms/v3/services/${serviceId}/messages`;   // 🔥 v3 로 변경
+  const url = `/sms/v2/services/${serviceId}/messages`;   // 
 
   const hmac = crypto.createHmac("sha256", secretKey);
   hmac.update(`POST ${url}\n${timestamp}\n${accessKey}`);
@@ -71,4 +71,5 @@ module.exports = async (req, res) => {
   } catch (err) {
     return res.status(500).json({ ok: false, message: "SENS 서버 통신 실패", error: err.message });
   }
+
 };
