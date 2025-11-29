@@ -35,7 +35,7 @@ module.exports = async (req, res) => {
   const signature = hmac.digest("base64");
 
   const messageText =
-`HairGG / Name: ${name} / Phone: ${phone} / Time: ${datetime} / Service: ${service} / Memo: ${memo}.`;
+`HairGG / Name:${name} / Phone:${phone} / Time:${datetime} / Service:${service} / Memo: ${memo}.`;
 
   const requestBody = {
     type: "SMS",
