@@ -1098,8 +1098,7 @@
         memo: formData.get('memo'),
       };
       
- alert("메모 내용 테스트:\n" + data.memo);
-
+ 
       try {
         const res = await fetch('/api/sens', {
           method: 'POST',
