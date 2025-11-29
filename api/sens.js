@@ -1,4 +1,3 @@
-// api/sens.js
 const crypto = require("crypto");
 
 module.exports = async (req, res) => {
@@ -27,7 +26,7 @@ module.exports = async (req, res) => {
   }
 
   const timestamp = Date.now().toString();
-  const url = `/sms/v2/services/${serviceId}/messages`;  
+  const url = `/sms/v3/services/${serviceId}/messages`;   // 🔥 v3 로 변경
 
   const hmac = crypto.createHmac("sha256", secretKey);
   hmac.update(`POST ${url}\n${timestamp}\n${accessKey}`);
@@ -35,18 +34,18 @@ module.exports = async (req, res) => {
 
   const messageText =
 `HairGG 예약문의
-이름 ${name}
-연락처 ${phone}
-희망시간 ${datetime}
-시술 ${service}
-요청내용 ${memo || "없음"}`;
+이름: ${name}
+연락처: ${phone}
+방문희망: ${datetime}
+시술: ${service}
+메모: ${memo}`;
 
-const requestBody = {
-  type: "LMS",   // ★★ 중요 포인트
-  from: fromNumber,
-  content: messageText,
-  messages: [{ to: toNumber }]
-};
+  const requestBody = {
+    type: "SMS",
+    from: fromNumber,
+    content: messageText,
+    messages: [{ to: toNumber }]
+  };
 
   try {
     const response = await fetch(`https://sens.apigw.ntruss.com${url}`, {
