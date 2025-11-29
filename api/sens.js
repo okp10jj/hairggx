@@ -27,7 +27,7 @@ module.exports = async (req, res) => {
   const memo = bodyData.memo || "(추가 문의 없음)";
 
   // 🔔 문자 받을 번호
-  const OWNER_PHONE = "01042426783";
+  const OWNER_PHONE = "01067064733";
 
   // ── SENS 설정 ──
   const serviceId = process.env.NCP_SENS_SERVICE_ID;
