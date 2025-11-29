@@ -28,7 +28,7 @@ module.exports = async (req, res) => {
   }
 
   const timestamp = Date.now().toString();
-  const url = `/sms/v2/services/${serviceId}/messages`;  // 🔥 v3 로 변경
+  const url = `/sms/v2/services/${serviceId}/messages`;  
 
   const hmac = crypto.createHmac("sha256", secretKey);
   hmac.update(`POST ${url}\n${timestamp}\n${accessKey}`);
@@ -40,7 +40,7 @@ name: ${name}
 phone: ${phone}
 datetime: ${datetime}
 service: ${service}
-memo: ${memo}`;
+note: ${memo}`;
 
   const requestBody = {
     type: "SMS",
