@@ -1,8 +1,8 @@
-// api/sens.js
-
 const crypto = require("crypto");
 
 module.exports = async (req, res) => {
+  console.log("📩 SENS API START");
+
   if (req.method !== "POST") {
     return res.status(200).json({
       ok: false,
@@ -22,12 +22,21 @@ module.exports = async (req, res) => {
   const service = bodyData?.service || "미입력";
   const memo = bodyData?.memo || "없음";
 
+  // 환경변수
   const serviceId = process.env.NCP_SENS_SERVICE_ID;
   const accessKey = process.env.NCP_SENS_ACCESS_KEY;
   const secretKey = process.env.NCP_SENS_SECRET_KEY;
   const fromNumber = process.env.NCP_SENS_CALL_NUMBER;
 
+  console.log("📌 ENV CHECK:", {
+    serviceId,
+    accessKey,
+    secretKeyExists: !!secretKey,
+    fromNumber
+  });
+
   if (!serviceId || !accessKey || !secretKey || !fromNumber) {
+    console.log("❌ 환경변수 누락");
     return res.status(500).json({
       ok: false,
       message: "환경변수가 설정되지 않았습니다."
@@ -42,17 +51,16 @@ module.exports = async (req, res) => {
   const signature = hmac.digest("base64");
 
   const messageText =
-`HairGG / Name:${name} / Phone:${phone} / Time:${datetime} / Service:${service} / Memo:${memo}`;
+    `HairGG/Name:${name}/Phone:${phone}/Time:${datetime}/Service:${service}/Memo:${memo}`;
 
   const requestBody = {
     type: "SMS",
     from: fromNumber,
-
-    // ⭐⭐ 여기만 수정됨 — 문자 받을 번호
-    messages: [
-      { to: "01042426783", content: messageText }
-    ]
+    content: messageText,
+    messages: [{ to: fromNumber }]
   };
+
+  console.log("📡 REQUEST BODY:", requestBody);
 
   try {
     const response = await fetch(`https://sens.apigw.ntruss.com${url}`, {
@@ -68,18 +76,21 @@ module.exports = async (req, res) => {
 
     const json = await response.json();
 
+    console.log("🔥 SENS FULL ERROR:", json);
+
     if (response.ok) {
       return res.status(200).json({ ok: true, result: json });
     } else {
-      console.log("🔥 SENS FULL ERROR:", json);  // ← 핵심
-
-return res.status(500).json({
-  ok: false,
-  message: "SENS 전송 오류",
-  result: json
-});
+      return res.status(500).json({
+        ok: false,
+        message: "SENS 전송 오류",
+        result: json
+      });
     }
+
   } catch (err) {
+    console.log("❌ SENS REQUEST FAILED:", err);
+
     return res.status(500).json({
       ok: false,
       message: "SENS 서버 통신 실패",
