@@ -1,5 +1,4 @@
 // api/sens.js
-console.log("REQ BODY >>>", req.body);
 const crypto = require("crypto");
 
 module.exports = async (req, res) => {
