@@ -40,7 +40,7 @@ module.exports = async (req, res) => {
 연락처: ${phone}
 희망시간: ${datetime}
 시술: ${service}
-메모:  ${memo || "없음"}`;
+메모: > [${memo || "없음"}]`;
 
   const requestBody = {
     type: "SMS",
