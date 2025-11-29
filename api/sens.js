@@ -22,7 +22,6 @@ module.exports = async (req, res) => {
   const service = bodyData?.service || "미입력";
   const memo = bodyData?.memo || "없음";
 
-  // ⭐ 네가 Vercel에 설정한 KEY 이름에 정확히 맞춰서 수정함
   const serviceId = process.env.NCP_SENS_SERVICE_ID;
   const accessKey = process.env.NCP_SENS_ACCESS_KEY;
   const secretKey = process.env.NCP_SENS_SECRET_KEY;
@@ -35,7 +34,6 @@ module.exports = async (req, res) => {
     });
   }
 
-  // 🔐 SENS 시그니처 생성
   const timestamp = Date.now().toString();
   const url = `/sms/v2/services/${serviceId}/messages`;
 
@@ -43,15 +41,17 @@ module.exports = async (req, res) => {
   hmac.update(`POST ${url}\n${timestamp}\n${accessKey}`);
   const signature = hmac.digest("base64");
 
-  // 📩 이모지 삭제된 안전 문자 버전
   const messageText =
 `HairGG / Name:${name} / Phone:${phone} / Time:${datetime} / Service:${service} / Memo:${memo}`;
-  
+
   const requestBody = {
     type: "SMS",
     from: fromNumber,
-    content: messageText,
-    messages: [{ to: fromNumber }]
+
+    // ⭐⭐ 여기만 수정됨 — 문자 받을 번호
+    messages: [
+      { to: "01067064733", content: messageText }
+    ]
   };
 
   try {
