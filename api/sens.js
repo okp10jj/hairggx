@@ -36,7 +36,7 @@ module.exports = async (req, res) => {
   const memo = (bodyData.memo || "").trim() || "(추가 문의 없음)";
 
   // 받는번호
-  const OWNER_PHONE = "01042426783";
+  const OWNER_PHONE = "01067064733";
 
   // 환경변수
   const serviceId = process.env.NCP_SENS_SERVICE_ID;
