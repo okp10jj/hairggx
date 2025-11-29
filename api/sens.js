@@ -49,8 +49,8 @@ module.exports = async (req, res) => {
 `이름 ${name}\n` +
 `연락처 ${phone}\n` +
 `예약시간 ${datetime}\n` +
-`항목 ${service}\n` +
-` 상세 내용 ${memo || "없음"}`;
+`항목 ${service}\n\n` +
+`MEMO: ${memo || "없음"}`;
 
   const requestBody = {
     type: "SMS",
