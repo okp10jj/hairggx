@@ -71,11 +71,13 @@ module.exports = async (req, res) => {
     if (response.ok) {
       return res.status(200).json({ ok: true, result: json });
     } else {
-      return res.status(500).json({
-        ok: false,
-        message: "SENS 전송 오류",
-        result: json
-      });
+      console.log("🔥 SENS FULL ERROR:", json);  // ← 핵심
+
+return res.status(500).json({
+  ok: false,
+  message: "SENS 전송 오류",
+  result: json
+});
     }
   } catch (err) {
     return res.status(500).json({
