@@ -11,7 +11,7 @@ module.exports = async (req, res) => {
     });
   }
 
-  // body 파싱
+  // body 파싱 (문자열/객체 모두 처리가능)
   let bodyData = req.body;
   if (typeof bodyData === "string") {
     try {
@@ -44,19 +44,24 @@ module.exports = async (req, res) => {
   const url = `https://sens.apigw.ntruss.com/sms/v2/services/${serviceId}/messages`;
   const timestamp = Date.now().toString();
 
+  // 시그니처 생성
   const signature = crypto
     .createHmac("sha256", secretKey)
-    .update(`POST /sms/v2/services/${serviceId}/messages\n${timestamp}\n${accessKey}`)
+    .update(
+      `POST /sms/v2/services/${serviceId}/messages\n` +
+      `${timestamp}\n` +
+      `${accessKey}`
+    )
     .digest("base64");
 
-  // 문자 내용 (여기에 희망시술/문의사항 100% 포함됨)
+  // 문자 내용 (희망시술/추가문의 포함)
   const messageText =
     `📌 헤어지지말자 예약문의\n\n` +
-    `🧑 고객명: ${name}\n` +
+    `🧑 이름: ${name}\n` +
     `📞 연락처: ${phone}\n` +
-    `📆 예약 희망: ${datetime}\n` +
-    `✂️ 희망 시술: ${service}\n` +
-    `📝 추가 문의:\n${memo}\n`;
+    `📆 날짜/시간: ${datetime}\n` +
+    `✂️ 희망 시술: ${service}\n\n` +
+    `📝 추가 문의사항:\n${memo}\n`;
 
   try {
     const response = await axios({
@@ -66,25 +71,25 @@ module.exports = async (req, res) => {
         "Content-Type": "application/json; charset=utf-8",
         "x-ncp-apigw-timestamp": timestamp,
         "x-ncp-iam-access-key": accessKey,
-        "x-ncp-apigw-signature-v2": signature,
+        "x-ncp-apigw-signature-v2": signature
       },
       data: {
         type: "SMS",
         from: fromNumber,
         content: messageText,
-        messages: [{ to: fromNumber }],
-      },
+        messages: [{ to: fromNumber }]
+      }
     });
 
     return res.status(200).json({
       ok: true,
-      result: response.data,
+      result: response.data
     });
 
   } catch (error) {
     return res.status(500).json({
       ok: false,
-      error: error.response?.data || error.message,
+      error: error.response?.data || error.message
     });
   }
 };
