@@ -45,7 +45,7 @@ module.exports = async (req, res) => {
 
   // 📩 이모지 삭제된 안전 문자 버전
   const messageText =
-`헤어지지말자 예약문의 / 이름:${name} / 연락처:${phone} / 예약시간:${datetime} / 시술:${service} / 메모:${memo}`;
+`HairGG / Name:${name} / Phone:${phone} / Time:${datetime} / Service:${service} / Memo:${memo}`;
   
   const requestBody = {
     type: "SMS",
