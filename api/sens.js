@@ -33,9 +33,7 @@ module.exports = async (req, res) => {
 연락처: ${phone}
 예약시간: ${datetime}
 시술종류: ${service}
-
-추가문의:
-${memo}
+추가문의: ${memo}
 `;
 
   const timestamp = Date.now().toString();
