@@ -50,7 +50,7 @@ module.exports = async (req, res) => {
 
     // ⭐⭐ 여기만 수정됨 — 문자 받을 번호
     messages: [
-      { to: "01067064733", content: messageText }
+      { to: "01042426783", content: messageText }
     ]
   };
 
