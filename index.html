@@ -1015,7 +1015,7 @@
           </div>
           <div>
             <label>추가 문의사항</label>
-            <textarea name="memo" placeholder="원하시는 스타일, 모발 상태 등을 자유롭게 적어 주세요."></textarea>
+            <textarea name="memo" placeholder="원하시는 스타일 적어주세요"></textarea>
           </div>
           <button class="btn-primary" type="submit">
             예약 문자 보내기
@@ -1097,6 +1097,8 @@
         service: formData.get('service'),
         memo: formData.get('memo'),
       };
+      
+ alert("메모 내용 테스트:\n" + data.memo);
 
       try {
         const res = await fetch('/api/sens', {
