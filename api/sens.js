@@ -23,10 +23,12 @@ module.exports = async (req, res) => {
   const memo = bodyData?.memo || "없음";
 
   // ★ env 이름 정확히 일치해야 함
-  const serviceId = process.env.NCP_SENS_SERVICE_ID;
-  const accessKey = process.env.NCP_SENS_ACCESS_KEY;
-  const secretKey = process.env.NCP_SENS_SECRET_KEY;
   const fromNumber = process.env.NCP_SENS_CALL_NUMBER;
+  const accessKey = process.env.NCP_SENS_ACCESS_KEY; 
+  const secretKey = process.env.NCP_SENS_SECRET_KEY;
+  const serviceId = process.env.NCP_SENS_SERVICE_ID;
+  
+    
 
   if (!serviceId || !accessKey || !secretKey || !fromNumber) {
     console.log("❌ ENV ERROR:", {
