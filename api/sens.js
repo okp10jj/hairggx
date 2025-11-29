@@ -35,7 +35,12 @@ module.exports = async (req, res) => {
   const signature = hmac.digest("base64");
 
   const messageText =
-`HairGG / Name:${name} / Phone:${phone} / Time:${datetime} / Service:${service} / Memo: -> ${memo || "없음"}`;
+`HairGG 예약문의
+이름 ${name}
+연락처 ${phone}
+희망시간 ${datetime}
+시술 ${service}
+요청내용 ${memo || "없음"}`;
 
   const requestBody = {
     type: "SMS",
