@@ -1,102 +1,90 @@
 // api/sens.js
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
 
 const crypto = require("crypto");
+const axios = require("axios");
 
 module.exports = async (req, res) => {
   if (req.method !== "POST") {
-    return res.status(405).json({
+    return res.status(200).json({
       ok: false,
-      message: "POST 전용 API입니다."
+      message: "POST 요청만 가능합니다."
     });
   }
 
-  // 🔥 raw body 직접 읽기 (Vercel에서 가장 안정적)
-  let rawBody = "";
-  await new Promise((resolve) => {
-    req.on("data", (chunk) => { rawBody += chunk; });
-    req.on("end", resolve);
-  });
-
-  let bodyData = {};
-  try {
-    bodyData = JSON.parse(rawBody);
-  } catch (e) {
-    console.error("JSON 파싱 오류:", e);
+  // body 파싱
+  let bodyData = req.body;
+  if (typeof bodyData === "string") {
+    try {
+      bodyData = JSON.parse(bodyData);
+    } catch (e) {
+      bodyData = {};
+    }
   }
 
-  // ⭐ 안정적으로 값 추출
-  const name = (bodyData.name || "").trim() || "미입력";
-  const phone = (bodyData.phone || "").trim() || "미입력";
-  const datetime = (bodyData.datetime || "").trim() || "미입력";
-  const service = (bodyData.service || "").trim() || "미선택";
-  const memo = (bodyData.memo || "").trim() || "(추가 문의 없음)";
+  // 값 정리
+  const name = bodyData?.name || "미입력";
+  const phone = bodyData?.phone || "미입력";
+  const datetime = bodyData?.datetime || "미입력";
+  const service = bodyData?.service || "미입력";
+  const memo = bodyData?.memo || "없음";
 
-  const OWNER_PHONE = "01067064733";
-
+  // NCP 환경변수
   const serviceId = process.env.NCP_SENS_SERVICE_ID;
-  const accessKey = process.env.NCP_SENS_ACCESS_KEY;
-  const secretKey = process.env.NCP_SENS_SECRET_KEY;
-  const senderNumber = process.env.NCP_SENS_CALL_NUMBER;
+  const accessKey = process.env.NCP_ACCESS_KEY;
+  const secretKey = process.env.NCP_SECRET_KEY;
+  const fromNumber = process.env.NCP_SENS_FROM;
 
-  if (!serviceId || !accessKey || !secretKey || !senderNumber) {
+  if (!serviceId || !accessKey || !secretKey || !fromNumber) {
     return res.status(500).json({
       ok: false,
-      message: "환경변수 누락",
+      message: "환경변수가 누락되었습니다."
     });
   }
 
-  // 문자 내용
-  const smsContent =
-    `[헤어지지말자 예약]\n` +
-    `이름: ${name}\n` +
-    `연락처: ${phone}\n` +
-    `예약시간: ${datetime}\n` +
-    `희망시술: ${service}\n` +
-    `추가문의: ${memo}`;
-
+  const url = `https://sens.apigw.ntruss.com/sms/v2/services/${serviceId}/messages`;
   const timestamp = Date.now().toString();
-  const url = `/sms/v2/services/${serviceId}/messages`;
 
   const signature = crypto
     .createHmac("sha256", secretKey)
-    .update(`POST ${url}\n${timestamp}\n${accessKey}`)
+    .update(`POST /sms/v2/services/${serviceId}/messages\n${timestamp}\n${accessKey}`)
     .digest("base64");
 
-  const requestBody = {
-    type: "SMS",
-    contentType: "COMM",
-    countryCode: "82",
-    from: senderNumber,
-    content: smsContent,
-    messages: [{ to: OWNER_PHONE }],
-  };
+  // 문자 내용 (여기에 희망시술/문의사항 100% 포함됨)
+  const messageText =
+    `📌 헤어지지말자 예약문의\n\n` +
+    `🧑 고객명: ${name}\n` +
+    `📞 연락처: ${phone}\n` +
+    `📆 예약 희망: ${datetime}\n` +
+    `✂️ 희망 시술: ${service}\n` +
+    `📝 추가 문의:\n${memo}\n`;
 
   try {
-    const response = await fetch(`https://sens.apigw.ntruss.com${url}`, {
+    const response = await axios({
       method: "POST",
+      url,
       headers: {
         "Content-Type": "application/json; charset=utf-8",
         "x-ncp-apigw-timestamp": timestamp,
         "x-ncp-iam-access-key": accessKey,
         "x-ncp-apigw-signature-v2": signature,
       },
-      body: JSON.stringify(requestBody),
+      data: {
+        type: "SMS",
+        from: fromNumber,
+        content: messageText,
+        messages: [{ to: fromNumber }],
+      },
     });
 
-    const result = await response.json();
+    return res.status(200).json({
+      ok: true,
+      result: response.data,
+    });
 
-    if (response.ok) {
-      return res.status(200).json({ ok: true, result });
-    } else {
-      return res.status(500).json({ ok: false, result });
-    }
   } catch (error) {
-    console.error("SENS 오류:", error);
-    return res.status(500).json({ ok: false, message: error.message });
+    return res.status(500).json({
+      ok: false,
+      error: error.response?.data || error.message,
+    });
   }
 };
