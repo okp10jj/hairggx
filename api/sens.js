@@ -9,15 +9,16 @@ const crypto = require("crypto");
 
 module.exports = async (req, res) => {
   if (req.method !== "POST") {
-    return res.status(405).json({ ok: false, message: "POST 전용 API입니다." });
+    return res.status(405).json({
+      ok: false,
+      message: "POST 전용 API입니다."
+    });
   }
 
-  // 🔥 raw body 직접 읽기 — Vercel에서 가장 안정적임
+  // 🔥 raw body 직접 읽기 (Vercel에서 가장 안정적)
   let rawBody = "";
   await new Promise((resolve) => {
-    req.on("data", (chunk) => {
-      rawBody += chunk;
-    });
+    req.on("data", (chunk) => { rawBody += chunk; });
     req.on("end", resolve);
   });
 
@@ -28,27 +29,28 @@ module.exports = async (req, res) => {
     console.error("JSON 파싱 오류:", e);
   }
 
-  // ⭐ 값 안정적으로 추출
+  // ⭐ 안정적으로 값 추출
   const name = (bodyData.name || "").trim() || "미입력";
   const phone = (bodyData.phone || "").trim() || "미입력";
   const datetime = (bodyData.datetime || "").trim() || "미입력";
   const service = (bodyData.service || "").trim() || "미선택";
   const memo = (bodyData.memo || "").trim() || "(추가 문의 없음)";
 
-  // 받는번호
   const OWNER_PHONE = "01067064733";
 
-  // 환경변수
   const serviceId = process.env.NCP_SENS_SERVICE_ID;
   const accessKey = process.env.NCP_SENS_ACCESS_KEY;
   const secretKey = process.env.NCP_SENS_SECRET_KEY;
   const senderNumber = process.env.NCP_SENS_CALL_NUMBER;
 
   if (!serviceId || !accessKey || !secretKey || !senderNumber) {
-    return res.status(500).json({ ok: false, message: "환경변수 누락" });
+    return res.status(500).json({
+      ok: false,
+      message: "환경변수 누락",
+    });
   }
 
-  // 🔔 문자 내용
+  // 문자 내용
   const smsContent =
     `[헤어지지말자 예약]\n` +
     `이름: ${name}\n` +
@@ -60,7 +62,6 @@ module.exports = async (req, res) => {
   const timestamp = Date.now().toString();
   const url = `/sms/v2/services/${serviceId}/messages`;
 
-  // HMAC 서명
   const signature = crypto
     .createHmac("sha256", secretKey)
     .update(`POST ${url}\n${timestamp}\n${accessKey}`)
