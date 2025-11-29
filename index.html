@@ -1166,34 +1166,7 @@
   }
   </script>
   
-<script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=mwql3gykea&callback=CALLBACK_FUNCTION"></script>
 
-<script>
-  const salonLocation = new naver.maps.LatLng(36.351326, 127.335030);
-
-  const map = new naver.maps.Map('naverMap', {
-      center: salonLocation,
-      zoom: 16,
-      mapTypeControl: false,
-      zoomControl: true
-  });
-
-  new naver.maps.Marker({
-      position: salonLocation,
-      map: map,
-  });
-
-  const infowindow = new naver.maps.InfoWindow({
-      content: `
-        <div style="padding:8px; font-size:13px;">
-          <b>헤어지지말자 미용실</b><br>
-          대전 유성구 구암동 608-12 1층
-        </div>
-      `
-  });
-
-  infowindow.open(map, salonLocation);
-</script>
 
 </body>
 </html>
