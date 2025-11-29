@@ -20,7 +20,7 @@ module.exports = async (req, res) => {
   const secretKey = process.env.NCP_SENS_SECRET_KEY;
   const fromNumber = process.env.NCP_SENS_CALL_NUMBER;
 
-  // 수신번호
+  // ⭐ 수신번호(내 폰)
   const toNumber = "01042426783";
 
   if (!serviceId || !accessKey || !secretKey || !fromNumber) {
@@ -28,7 +28,7 @@ module.exports = async (req, res) => {
   }
 
   const timestamp = Date.now().toString();
-  const url = `/sms/v2/services/${serviceId}/messages`;
+  const url = `/sms/v3/services/${serviceId}/messages`;   // 🔥 v3 로 변경
 
   const hmac = crypto.createHmac("sha256", secretKey);
   hmac.update(`POST ${url}\n${timestamp}\n${accessKey}`);
@@ -36,7 +36,6 @@ module.exports = async (req, res) => {
 
   const messageText =
 `HairGG 예약문의
-
 이름: ${name}
 연락처: ${phone}
 방문희망: ${datetime}
@@ -44,9 +43,8 @@ module.exports = async (req, res) => {
 메모: ${memo}`;
 
   const requestBody = {
-    type: "LMS",                     // ← 중요 ★★
+    type: "SMS",
     from: fromNumber,
-    subject: "HairGG 예약문의",      // ← LMS는 제목 필수 ★★
     content: messageText,
     messages: [{ to: toNumber }]
   };
@@ -74,5 +72,3 @@ module.exports = async (req, res) => {
     return res.status(500).json({ ok: false, message: "SENS 서버 통신 실패", error: err.message });
   }
 };
-
-
