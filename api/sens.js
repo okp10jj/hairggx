@@ -26,14 +26,14 @@ module.exports = async (req, res) => {
   const service = bodyData.service || "미선택";
   const memo = bodyData.memo || "(추가 문의 없음)";
 
-  // 🔔 여기로 문자 받을 번호 (사장님 번호)
+  // 🔔 문자 받을 번호
   const OWNER_PHONE = "01042426783";
 
-  // ── 네이버 SENS 설정 (환경변수에서 가져옴) ──
-  const serviceId = process.env.NCP_SENS_SERVICE_ID;   // 예: ncp:sms:kr:xxxx:yyyy
-  const accessKey = process.env.NCP_SENS_ACCESS_KEY;   // Access Key ID
-  const secretKey = process.env.NCP_SENS_SECRET_KEY;   // Secret Key
-  const senderNumber = process.env.NCP_SENS_SENDER;    // 발신번호 (SENS에 등록된 번호)
+  // ── SENS 설정 ──
+  const serviceId = process.env.NCP_SENS_SERVICE_ID;
+  const accessKey = process.env.NCP_SENS_ACCESS_KEY;
+  const secretKey = process.env.NCP_SENS_SECRET_KEY;
+  const senderNumber = process.env.NCP_SENS_CALL_NUMBER;   // ★ 수정완료
 
   if (!serviceId || !accessKey || !secretKey || !senderNumber) {
     return res.status(500).json({
@@ -42,7 +42,7 @@ module.exports = async (req, res) => {
     });
   }
 
-  // ── 문자 내용 구성 ──
+  // ── 문자 내용 ──
   const smsContent =
     "[헤어지지말자 예약]\n" +
     `이름: ${name}\n` +
@@ -71,13 +71,9 @@ module.exports = async (req, res) => {
     type: "SMS",
     contentType: "COMM",
     countryCode: "82",
-    from: senderNumber,                          // 발신번호
-    content: smsContent,                        // 기본 메시지 (개별 내용 없을 때)
-    messages: [
-      {
-        to: OWNER_PHONE.replace(/-/g, ""),      // 수신번호(숫자만)
-      },
-    ],
+    from: senderNumber,
+    content: smsContent,
+    messages: [{ to: OWNER_PHONE.replace(/-/g, "") }],
   };
 
   try {
@@ -100,7 +96,6 @@ module.exports = async (req, res) => {
     if (response.ok) {
       return res.status(200).json({ ok: true, result });
     } else {
-      console.error("SENS error:", result);
       return res.status(500).json({
         ok: false,
         message: "SENS 전송 중 오류",
