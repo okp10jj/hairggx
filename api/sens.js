@@ -36,11 +36,11 @@ module.exports = async (req, res) => {
 
   const messageText =
 `HairGG 예약문의
-name: ${name}
-phone: ${phone}
-datetime: ${datetime}
-service: ${service}
-note: ${memo}`;
+이름: ${name}
+연락처: ${phone}
+희망시간: ${datetime}
+시술: ${service}
+메모:  ${memo || "없음"}`;
 
   const requestBody = {
     type: "SMS",
