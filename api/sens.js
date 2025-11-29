@@ -22,21 +22,12 @@ module.exports = async (req, res) => {
   const service = bodyData?.service || "미입력";
   const memo = bodyData?.memo || "없음";
 
-  // ★ env 이름 정확히 일치해야 함
-  const fromNumber = process.env.NCP_SENS_CALL_NUMBER;
-  const accessKey = process.env.NCP_SENS_ACCESS_KEY; 
-  const secretKey = process.env.NCP_SENS_SECRET_KEY;
   const serviceId = process.env.NCP_SENS_SERVICE_ID;
-  
-    
+  const accessKey = process.env.NCP_SENS_ACCESS_KEY;
+  const secretKey = process.env.NCP_SENS_SECRET_KEY;
+  const fromNumber = process.env.NCP_SENS_CALL_NUMBER;
 
   if (!serviceId || !accessKey || !secretKey || !fromNumber) {
-    console.log("❌ ENV ERROR:", {
-      serviceId,
-      accessKey,
-      secretKey,
-      fromNumber
-    });
     return res.status(500).json({
       ok: false,
       message: "환경변수가 설정되지 않았습니다."
@@ -51,13 +42,14 @@ module.exports = async (req, res) => {
     .update(`POST ${url}\n${timestamp}\n${accessKey}`)
     .digest("base64");
 
+  // 이모지 0개, 특수문자 0개 — 완전 안전
   const messageText =
-    `📌 헤어지지말자 예약문의\n\n` +
-    `🧑 이름: ${name}\n` +
-    `📞 연락처: ${phone}\n` +
-    `📆 날짜/시간: ${datetime}\n` +
-    `✂️ 희망 시술: ${service}\n\n` +
-    `📝 추가 문의사항:\n${memo}\n`;
+    `[헤어지지말자 예약문의]\n\n` +
+    `이름: ${name}\n` +
+    `연락처: ${phone}\n` +
+    `날짜/시간: ${datetime}\n` +
+    `희망 시술: ${service}\n\n` +
+    `추가 문의사항:\n${memo}\n`;
 
   const requestBody = {
     type: "SMS",
@@ -83,22 +75,19 @@ module.exports = async (req, res) => {
     );
 
     const result = await response.json();
-
-    // 🔥 SENS가 반환한 실제 오류 화면 출력
-    console.log("📩 SENS RESPONSE:", result);
+    console.log("SENS RESPONSE:", result);
 
     if (response.ok) {
       return res.status(200).json({ ok: true, result });
     } else {
       return res.status(500).json({
         ok: false,
-        message: "SENS 전송 오류 발생",
+        message: "SENS 전송 오류",
         result
       });
     }
 
   } catch (error) {
-    console.log("❌ FETCH ERROR:", error);
     return res.status(500).json({
       ok: false,
       message: "SENS 서버 통신 실패",
