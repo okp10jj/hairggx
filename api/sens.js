@@ -45,13 +45,8 @@ module.exports = async (req, res) => {
 
   // 📩 이모지 삭제된 안전 문자 버전
   const messageText =
-"[헤어지지말자 예약]\n" +
-`이름 ${name}\n` +
-`연락처 ${phone}\n` +
-`예약시간 ${datetime}\n` +
-`항목 ${service}\n` +
-`메모: ${memo}\nEND`;
-
+`헤어지지말자 예약문의 / 이름:${name} / 연락처:${phone} / 예약시간:${datetime} / 시술:${service} / 메모:${memo}`;
+  
   const requestBody = {
     type: "SMS",
     from: fromNumber,
