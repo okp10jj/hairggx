@@ -1061,20 +1061,10 @@
         • 인근 버스 정류장 하차 후 도보 이동<br />
         • 차량 이용 시, 가게 앞·옆 주차 가능
       </div>
-      <div id="map" style="width:100%;height:350px;"></div>
+      <div id="naverMap" style="width:100%; height:350px; border-radius:14px; margin-top:15px;"></div>
 
-<script src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=5gs88lpn37"></script>
-<script>
-  var map = new naver.maps.Map('map', {
-    center: new naver.maps.LatLng(36.3624072, 127.327531),
-    zoom: 16
-  });
 
-  new naver.maps.Marker({
-    position: new naver.maps.LatLng(36.3624072, 127.327531),
-    map: map
-  });
-</script>
+
      </div>
   </section>
 
@@ -1162,5 +1152,38 @@
       map: map
     });
   </script>
+<script src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=5gs88lpn37"></script>
+
+<script>
+  // 구암동 헤어지지말자 좌표
+  const salonLocation = new naver.maps.LatLng(36.3624072, 127.327531);
+
+  // 지도 생성
+  const map = new naver.maps.Map('naverMap', {
+      center: salonLocation,
+      zoom: 16,
+      mapTypeControl: false,
+      zoomControl: true
+  });
+
+  // 마커 표시
+  new naver.maps.Marker({
+      position: salonLocation,
+      map: map,
+  });
+
+  // 말풍선(옵션)
+  const infowindow = new naver.maps.InfoWindow({
+      content: `
+        <div style="padding:8px; font-size:13px;">
+          <b>헤어지지말자 미용실</b><br>
+          대전 유성구 구암동 608-12 1층
+        </div>
+      `
+  });
+
+  infowindow.open(map, salonLocation);
+</script>
+
 </body>
 </html>
