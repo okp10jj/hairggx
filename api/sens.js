@@ -32,7 +32,7 @@ module.exports = async (req, res) => {
 이름: ${name}
 연락처: ${phone}
 예약시간: ${datetime}
-희망시술: ${service}
+시술종류: ${service}
 
 추가문의:
 ${memo}
