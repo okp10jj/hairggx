@@ -42,12 +42,12 @@ module.exports = async (req, res) => {
 시술 ${service}
 요청내용 ${memo || "없음"}`;
 
-  const requestBody = {
-    type: "SMS",
-    from: fromNumber,
-    content: messageText,
-    messages: [{ to: toNumber }]
-  };
+const requestBody = {
+  type: "LMS",   // ★★ 중요 포인트
+  from: fromNumber,
+  content: messageText,
+  messages: [{ to: toNumber }]
+};
 
   try {
     const response = await fetch(`https://sens.apigw.ntruss.com${url}`, {
