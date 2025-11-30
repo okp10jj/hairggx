@@ -198,8 +198,80 @@ h1, h2, .section-title { font-size:clamp(1.4rem, 4vw, 2.2rem); }
 
 section,.hero,.footer-inner{padding-left:18px !important;padding-right:18px !important;}
 /* ===================== 모바일 최적화 끝 ===================== */
+/* ================= 예약문의 화면 모바일 최적화 추가 ================= */
+@media(max-width:780px){
+  .contact-grid{
+    grid-template-columns:1fr !important;
+    gap:22px !important;
+  }
+  .contact-card,
+  #reserveForm{
+    width:100%;
+  }
+}
 
+/* 폼 내부 좌우 정렬 이쁘게 정돈 */
+@media(max-width:520px){
+  .contact-form label{
+    font-size:0.9rem;
+    margin-top:2px;
+  }
+  .contact-form input,
+  .contact-form textarea,
+  .contact-form select{
+    padding:12px;
+    font-size:.9rem;
+    border-radius:12px;
+  }
 
+  .contact-card{
+    padding:18px;
+  }
+  #reserveForm{
+    padding:6px;
+  }
+}
+/* ================================================================ */
+/* ================= 예약문의 최종 정돈 강화 ================= */
+@media(max-width:890px){
+  .contact-grid{
+    grid-template-columns:1fr !important;
+    gap:26px!important;
+    max-width:680px;
+    margin:auto;
+  }
+}
+
+/* 카드 + 폼 좌우 숨은 여백 제거 */
+@media(max-width:600px){
+  .contact-card,
+  #reserveForm{
+    width:100%;
+    margin:0 auto;
+  }
+}
+
+/* 입력창 가운데 형태 + 여백 넓힘 */
+@media(max-width:540px){
+  #reserveForm{
+    padding:8px 4px;
+  }
+  .contact-form input,
+  .contact-form textarea,
+  .contact-form select{
+    font-size:.92rem;
+    padding:13px;
+  }
+}
+
+/* 버튼 중앙 정렬 + 더 크고 클릭 잘되게 */
+#reserveForm button{
+  width:100%;
+  margin-top:6px;
+  font-size:1rem;
+  padding:15px;
+  border-radius:14px;
+}
 </style>
 
 </head>
