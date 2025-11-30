@@ -428,6 +428,45 @@ var marker=new naver.maps.Marker({position:new naver.maps.LatLng(36.351326,127.3
 new naver.maps.InfoWindow({content:`<div style="padding:8px;font-size:13px;"><b>헤어지지말자 미용실</b><br>대전 유성구 구암동 608-12 1층</div>`}).open(map,marker);
 </script>
 
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const form = document.querySelector("form");  // 예약 폼 자동 감지 🔥
+
+  if (!form) {
+    alert("⚠ 예약 폼(form)을 찾을 수 없습니다.");
+    return;
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const data = {
+      name: form.querySelector("[name='name']").value,
+      phone: form.querySelector("[name='phone']").value,
+      datetime: form.querySelector("[name='datetime']").value,
+      service: form.querySelector("[name='service']").value,
+      memo: form.querySelector("[name='memo']").value,
+    };
+
+    const res = await fetch("/api/sens", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+
+    const json = await res.json();
+
+    if (json.ok) {
+      alert("📩 예약 문자 발송 완료!");
+      form.reset();
+    } else {
+      alert("❗ 문자 전송 실패:\n" + JSON.stringify(json, null, 2));
+    }
+  });
+
+});
+</script>
 
 </body>
 </html>
